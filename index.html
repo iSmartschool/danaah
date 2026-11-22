@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="iSmartSchool – school management for GES schools: students, fees, canteen, attendance, results, report cards and payroll. Works offline.">
+  <meta name="theme-color" content="#152230">
+  <meta name="color-scheme" content="dark light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="iSmartSchool">
+  <title>iSmartSchool – GES SMS</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <script src="assets/js/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/offline.css">
+</head>
+<body>
+<noscript><div class="noscript">iSmartSchool needs JavaScript. Please enable it in your browser settings.</div></noscript>
+<div id="loginOverlay">
+  <button type="button" class="login-theme theme-btn" aria-label="Switch light or dark mode" title="Switch light / dark mode">🌙</button>
+  <main class="auth">
+    <section class="auth-brand" aria-label="About this system">
+      <div class="auth-brand-inner">
+        <div class="auth-crest" id="loginLogo" aria-hidden="true">🏫</div>
+        <p class="auth-product">iSmartSchool</p>
+        <h1 id="loginSubtitle" class="auth-school">School Management System</h1>
+        <p class="auth-tag">Everything your school runs on, in one secure place.</p>
+        <ul class="auth-points">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18v10H3zM3 10h18M7 15h3"/></svg><span><b>Fees &amp; receipts</b> collected, tracked and reconciled</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 16v-5m4 5V8m4 8v-3"/></svg><span><b>Results &amp; report cards</b> ready for every class</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a10 10 0 0 1 14 0M8 15a6 6 0 0 1 8 0M12 19h.01"/></svg><span><b>Works offline</b> and catches up when you reconnect</span></li>
+        </ul>
+      </div>
+      <p class="auth-brand-foot">© iSmartSchool 2026. All rights reserved.</p>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div id="setupForm"></div>
+        <div id="loginForm">
+          <header class="auth-head">
+            <h2>Welcome back</h2>
+            <p>Sign in with your username to continue.</p>
+          </header>
+          <form id="loginFormEl" novalidate onsubmit="return false">
+            <div class="field">
+              <label for="loginUsername">Username</label>
+              <div class="input-wrap">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                <input id="loginUsername" type="text" inputmode="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="80" placeholder="e.g. kofi.mensah" aria-describedby="loginError">
+              </div>
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <div class="input-wrap">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password" aria-describedby="loginCaps loginError">
+                <button type="button" class="reveal" id="loginReveal" aria-label="Show password" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <p class="caps hidden" id="loginCaps" role="status">Caps Lock is on</p>
+            </div>
+            <label class="remember-row switch" for="loginRemember">
+              <input type="checkbox" id="loginRemember">
+              <span class="track" aria-hidden="true"></span>
+              <span class="txt">Keep me signed in on this device<small>Needed to open the app offline. Leave off on a shared computer.</small></span>
+            </label>
+            <button class="auth-btn" id="loginBtn" type="submit"><span class="lbl">Sign in</span><span class="spin" aria-hidden="true"></span></button>
+          </form>
+          <p id="loginError" class="auth-error" role="alert"></p>
+          <p id="loginNet" class="login-net hidden" role="status"></p>
+          <button type="button" class="btn btn-secondary install-btn hidden" id="installBtnLogin">⬇️ Install app</button>
+          <p class="auth-help">Forgot your password or username? Ask your school administrator.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="app-layout" id="appLayout">
+  <div class="mobile-topbar">
+    <button id="menuBtn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+    <span id="mobileTitle">Dashboard</span>
+    <button type="button" class="sync-pill" data-sync-pill aria-label="Connection and sync status"><span class="dot"></span><span class="txt">Online</span></button>
+    <button type="button" class="theme-btn" aria-label="Switch light or dark mode" title="Switch light / dark mode">🌙</button>
+    <span class="mobile-crest" id="mobileCrest">🏫</span>
+  </div>
+  <div id="navBackdrop"></div>
+  <div class="app-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-crest" id="sidebarCrest">🏫</div>
+      <div class="sidebar-title"><span id="sidebarSchoolName">iSmartSchool</span><br><small id="sidebarUser" style="color:var(--text-muted)"></small></div>
+    </div>
+    <div id="navMenu"></div>
+    <div class="sidebar-footer"><button type="button" class="theme-btn theme-toggle" id="themeSideBtn" style="margin-bottom:8px;">🌙 Dark mode</button><button type="button" class="install-btn hidden" id="installBtnSide" style="margin-bottom:8px;">⬇️ Install app</button><button type="button" id="syncCenterBtn" style="margin-bottom:8px;">🔄 Sync &amp; offline data</button><button id="changePwBtn">🔑 Change Password</button><button id="logoutBtnSide" class="side-logout">🚪 Logout</button></div>
+  </div>
+  <div class="main-content">
+    <div class="page-header"><h2 id="pageTitle">Dashboard</h2><div class="page-header-actions"><button type="button" class="sync-pill" data-sync-pill aria-label="Connection and sync status"><span class="dot"></span><span class="txt">Online</span></button><button class="logout-btn-top" id="logoutBtn">🚪 Logout</button></div></div>
+    <div id="connBanner" class="conn-banner hidden" role="status" aria-live="polite"></div>
+    <div id="pageBody"></div>
+  </div>
+</div>
+<nav class="bottom-nav" id="bottomNav" aria-label="Quick navigation"></nav>
+<div id="printOverlay" class="print-overlay"><div id="printContent"></div></div>
+<div id="modalContainer"></div>
+<div id="toastHost" class="toast-host" aria-live="polite"></div>
+<script src="config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/sync-ui.js"></script>
+<script src="assets/js/pwa.js"></script>
+</body>
+</html>
